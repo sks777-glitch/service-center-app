@@ -2,12 +2,12 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebas
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyAwwp62tVrDiUOdZiOzu1WUbebblaLZYm4",
+  authDomain: "service-senter-app.firebaseapp.com",
+  projectId: "service-senter-app",
+  storageBucket: "service-senter-app.firebasestorage.app",
+  messagingSenderId: "850080983904",
+  appId: "1:850080983904:web:fed05aa488c0ea589c4c05"
 };
 
 const app = initializeApp(firebaseConfig);
