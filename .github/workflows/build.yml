@@ -27,15 +27,9 @@ jobs:
           rm -rf ~/.gradle/caches
           rm -rf ~/.gradle/wrapper
 
-      - name: Install dependencies
+      - name: Install Capacitor
         run: |
           npm install @capacitor/core @capacitor/cli @capacitor/android
-
-      - name: Prepare web assets
-        run: |
-          rm -rf app
-          mkdir app
-          cp index.html app/index.html
 
       - name: Sync Android platform
         run: |
