@@ -28,7 +28,7 @@ jobs:
 
       - name: Add Android platform
         run: |
-          npx cap init "Service Center App" "com.servicecenter.app" --web-dir=www
+          npx cap init "Service Center App" "com.servicecenter.app" --web-dir=app
           npx cap add android
 
       - name: Build Android APK
