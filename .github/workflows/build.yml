@@ -5,44 +5,61 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04   # IMPORTANT: do NOT use ubuntu-latest
+    runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      # 1. Checkout repo
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Set up Node
+      # 2. Set up Node
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
 
-      - name: Set up Java 17
+      # 3. Set up Java 17 (IMPORTANT)
+      - name: Set up Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: 17
 
-      - name: Verify Java
-        run: java -version
-
-      - name: Install Capacitor
+      # 4. Install Capacitor
+      - name: Install dependencies
         run: |
           npm install @capacitor/core @capacitor/cli @capacitor/android
 
+      # 5. Prepare web assets (www/index.html REQUIRED)
+      - name: Prepare web app
+        run: |
+          mkdir -p www
+          echo "<!DOCTYPE html><html><head><title>Service Center App</title></head><body><h1>Service Center App</h1></body></html>" > www/index.html
+
+      # 6. Initialize Capacitor (only if not already)
+      - name: Initialize Capacitor
+        run: |
+          npx cap init "Service Center App" "com.servicecenter.app" --web-dir=www
+
+      # 7. Add Android platform
       - name: Add Android platform
         run: |
           npx cap add android
 
-      - name: Sync Android
+      # 8. Sync Capacitor
+      - name: Sync Capacitor
         run: |
           npx cap sync android
 
-      - name: Build APK
+      # 9. Build APK
+      - name: Build Android APK
         run: |
           cd android
-          ./gradlew assembleDebug --no-daemon --stacktrace
+          ./gradlew assembleDebug
 
-      - name: Upload APK
+      # 10. Upload APK
+      - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: servicecenter-apk
+          name: service-center-debug-apk
           path: android/app/build/outputs/apk/debug/app-debug.apk
